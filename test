@@ -1,0 +1,24 @@
+const url = 'https://byndyusoft.com/'
+
+describe("Open page google", () => {
+    beforeEach(() => {
+        cy.visit('https://www.google.ru/');
+    });
+
+
+    it("Check contact information", () => {
+        cy.log("Enter in the input field, Byndyusoft ");
+        cy.xpath('//*[@id="APjFqb"]').type("Byndyusoft")
+        .type('{enter}')            
+        cy.log("Click first link");
+        cy.get('h3').first().invoke('attr', 'href').then((href) => {
+            cy.visit({ url })
+        cy.log("Click button, Заказать презентацию");    
+        cy.contains('Заказать презентацию', {timeout: 40000}).click()
+        cy.log("Check email and mobile num");        
+        cy.contains('sales@byndyusoft.com').should('exist')
+        cy.contains('8 800 775-15-21').should('exist')
+    })
+})
+});
+    
