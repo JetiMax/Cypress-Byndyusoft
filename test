@@ -6,7 +6,8 @@ describe("Open page google", () => {
         cy.get('[jsname="yZiJbe"]').type("Byndyusoft")
             .type('{enter}')            
         cy.log("Click first link")
-        cy.get('h3').first().click({force: true})
+        cy.contains('Результаты поиска')
+        cy.get('a').first().click({force: true})
         
         cy.origin('https://byndyusoft.com', () => {
             cy.visit('https://byndyusoft.com')
