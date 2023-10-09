@@ -1,25 +1,29 @@
-describe("Open page google", () => {
-   
-    it("Check contact information", () => {
+describe("Checking the link", () => {
+
+    it("Ссылка на телеграмм равна значению 'https://t.me/alexanderbyndyu'", () => {
         cy.visit('https://www.google.ru/')
         cy.log("Enter in the input field, Byndyusoft ")
         cy.get('[jsname="yZiJbe"]').type("Byndyusoft")
-            .type('{enter}')            
+            .type('{enter}')
         cy.log("Click first link")
         cy.contains('Результаты поиска')
         cy.get('a').first().click({force: true})
-        
+
         cy.origin('https://byndyusoft.com', () => {
             cy.visit('https://byndyusoft.com')
-        cy.log("Click button, Заказать презентацию");   
-        cy.contains('Заказать презентацию', {timeout: 40000})
-            .should('be.visible')
-            .click();            
-        cy.log("Check email and mobile num");        
-        cy.contains('sales@byndyusoft.com')
-            .should('be.visible');
-        cy.contains('8 800 775-15-21')
-        .should('be.visible')
+            cy.log("Partition check")
+            cy.contains('Узнайте больше о наших продуктах')
+                .should('be.visible')
+            cy.log("Click button, Заказать презентацию")
+            cy.contains('Заказать презентацию').each(($el) => {
+                const backgroundColor = $el.css('background-color');
+                if (backgroundColor === 'rgb(255, 214, 87)') {
+                    $el.click()
+                }
+            })
+            cy.log("Check link");
+            cy.contains(' в Телеграм ')
+                .should('have.attr', 'href', 'https://t.me/alexanderbyndyu')
+        })
     })
-})
 });
